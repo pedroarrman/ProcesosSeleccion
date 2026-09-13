@@ -1,206 +1,617 @@
-
 <!DOCTYPE html>
-<html>
+
+<html lang="es">
+
 <head>
-  <base target="_top">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background:#f5f6f8; color:#202124; }
-    header { background:#1f3a5f; color:white; padding:18px 24px; }
-    nav { display:flex; gap:8px; padding:12px 24px; background:white; border-bottom:1px solid #ddd; flex-wrap:wrap; }
-    button { border:0; border-radius:6px; padding:9px 14px; cursor:pointer; }
-    .primary { background:#1f3a5f; color:white; }
-    .tab { background:#eee; }
-    .active { background:#dbe8f5; }
-    main { padding:24px; max-width:1200px; margin:auto; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; }
-    .card { background:white; border:1px solid #ddd; border-radius:10px; padding:18px; }
-    .metric { font-size:28px; font-weight:bold; margin-top:8px; }
-    form { background:white; padding:20px; border-radius:10px; margin-top:15px; }
-    label { display:block; font-weight:bold; margin:12px 0 5px; }
-    input, select, textarea { width:100%; box-sizing:border-box; padding:9px; border:1px solid #bbb; border-radius:6px; }
-    textarea { min-height:80px; }
-    table { width:100%; border-collapse:collapse; background:white; margin-top:15px; }
-    th,td { padding:10px; border-bottom:1px solid #ddd; text-align:left; }
-    .hidden { display:none; }
-    .msg { margin-top:12px; padding:10px; border-radius:6px; background:#eef5ea; }
-  </style>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Procesos de Selección
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="css/styles.css"
+  >
+
 </head>
+
+
 <body>
-<header><h1>Procesos de Selección</h1></header>
+
+
+<header>
+
+  <div class="container">
+
+    <h1>
+      Procesos de Selección
+    </h1>
+
+    <p>
+      Gestión de procesos y candidaturas
+    </p>
+
+  </div>
+
+</header>
+
+
 <nav>
-  <button class="tab active" onclick="show('dashboard',this)">Dashboard</button>
-  <button class="tab" onclick="show('proceso',this)">Nuevo proceso</button>
-  <button class="tab" onclick="show('candidatura',this)">Nueva candidatura</button>
-  <button class="tab" onclick="show('estado',this)">Actualizar estado</button>
-  <button class="tab" onclick="show('entrevista',this)">Registrar entrevista</button>
-  <button class="tab" onclick="show('contrato',this)">Registrar contratación</button>
+
+  <div class="container nav">
+
+    <button
+      data-view="dashboard"
+      class="active"
+    >
+      Dashboard
+    </button>
+
+    <button
+      data-view="procesos"
+    >
+      Procesos
+    </button>
+
+    <button
+      data-view="candidaturas"
+    >
+      Candidaturas
+    </button>
+
+    <button
+      data-view="estados"
+    >
+      Estados
+    </button>
+
+    <button
+      data-view="entrevistas"
+    >
+      Entrevistas
+    </button>
+
+    <button
+      data-view="contrataciones"
+    >
+      Contrataciones
+    </button>
+
+  </div>
+
 </nav>
 
-<main>
-  <section id="dashboard">
-    <h2>Resumen</h2>
-    <select id="filtroProceso" onchange="cargarDashboard()"></select>
-    <div id="metricas" class="grid" style="margin-top:15px"></div>
-    <h3>Desagregación por sexo</h3>
-    <div id="sexo"></div>
-  </section>
 
-  <section id="proceso" class="hidden">
-    <h2>Nuevo proceso</h2>
-    <form onsubmit="guardarProceso(event)">
-      <label>Nombre del proceso *</label><input name="Nombre_Proceso" required>
-      <label>Nº vacantes *</label><input name="N_Vacantes" type="number" min="1" required>
-      <label>Descripción</label><textarea name="Descripcion"></textarea>
-      <label>Fecha de inicio</label><input name="Fecha_Inicio" type="date">
-      <label>Fecha de fin</label><input name="Fecha_Fin" type="date">
-      <label>Fase inicial</label><select name="Fase_Actual" id="faseInicial"></select>
-      <label>Observaciones</label><textarea name="Observaciones"></textarea>
-      <button class="primary">Guardar proceso</button>
-      <div id="msgProceso"></div>
-    </form>
-  </section>
+<main class="container">
 
-  <section id="candidatura" class="hidden">
-    <h2>Nueva candidatura</h2>
-    <form onsubmit="guardarCandidatura(event)">
-      <label>Proceso *</label><select name="ID_Proceso" id="candProceso" required></select>
-      <label>Sexo *</label><select name="Sexo" id="sexoCand" required></select>
-      <label>Fuente *</label><select name="Fuente" id="fuenteCand" required></select>
-      <label>Fecha</label><input name="Fecha_Candidatura" type="date">
-      <label>Observaciones</label><textarea name="Observaciones"></textarea>
-      <button class="primary">Guardar candidatura</button>
-      <div id="msgCandidatura"></div>
-    </form>
-  </section>
 
-  <section id="estado" class="hidden">
-    <h2>Actualizar estado de candidatura</h2>
-    <form onsubmit="actualizarEstado(event)">
-      <label>Candidatura *</label><select name="ID_Candidatura" id="estadoCand" required></select>
-      <label>Nuevo estado *</label><select name="Estado" id="estadoNuevo" required></select>
-      <label>Observaciones</label><textarea name="Observaciones"></textarea>
-      <button class="primary">Actualizar estado</button>
-      <div id="msgEstado"></div>
-    </form>
-  </section>
+<!-- ============================= -->
+<!-- DASHBOARD -->
+<!-- ============================= -->
 
-  <section id="entrevista" class="hidden">
-    <h2>Registrar entrevista</h2>
-    <form onsubmit="guardarEntrevista(event)">
-      <label>Candidatura *</label><select name="ID_Candidatura" id="entrevistaCand" required></select>
-      <label>Fecha programada</label><input name="Fecha_Programada" type="datetime-local">
-      <label>Fecha realizada</label><input name="Fecha_Realizacion" type="datetime-local">
-      <label>Estado</label><select name="Estado_Entrevista" id="estadoEntrevista"></select>
-      <label>Resultado</label><select name="Resultado" id="resultadoEntrevista"></select>
-      <label>Observaciones</label><textarea name="Observaciones"></textarea>
-      <button class="primary">Guardar entrevista</button>
-      <div id="msgEntrevista"></div>
-    </form>
-  </section>
+<section
+  id="dashboard"
+  class="view"
+>
 
-  <section id="contrato" class="hidden">
-    <h2>Registrar contratación</h2>
-    <form onsubmit="guardarContrato(event)">
-      <label>Candidatura *</label><select name="ID_Candidatura" id="contratoCand" required></select>
-      <label>Fecha de contrato</label><input name="Fecha_Contrato" type="date">
-      <label>Estado</label><select name="Estado_Contrato" id="estadoContrato"></select>
-      <label>Observaciones</label><textarea name="Observaciones"></textarea>
-      <button class="primary">Guardar contratación</button>
-      <div id="msgContrato"></div>
-    </form>
-  </section>
+  <h2>
+    Dashboard
+  </h2>
+
+
+  <div class="form-group">
+
+    <label>
+      Proceso
+    </label>
+
+    <select id="filtroProceso">
+
+      <option value="">
+        Todos los procesos
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div
+    id="metricas"
+    class="metrics"
+  ></div>
+
+
+  <div class="panel">
+
+    <h3>
+      Indicadores por sexo
+    </h3>
+
+    <div id="tablaSexo"></div>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- PROCESOS -->
+<!-- ============================= -->
+
+<section
+  id="procesos"
+  class="view hidden"
+>
+
+  <h2>
+    Nuevo proceso de selección
+  </h2>
+
+
+  <form id="formProceso">
+
+
+    <label>
+      Nombre del proceso
+
+      <input
+        name="Nombre_Proceso"
+        required
+      >
+
+    </label>
+
+
+    <label>
+      Número de vacantes
+
+      <input
+        name="N_Vacantes"
+        type="number"
+        min="1"
+        required
+      >
+
+    </label>
+
+
+    <label>
+      Descripción
+
+      <textarea
+        name="Descripcion"
+      ></textarea>
+
+    </label>
+
+
+    <label>
+      Fecha de inicio
+
+      <input
+        name="Fecha_Inicio"
+        type="date"
+      >
+
+    </label>
+
+
+    <label>
+      Fecha de fin
+
+      <input
+        name="Fecha_Fin"
+        type="date"
+      >
+
+    </label>
+
+
+    <label>
+      Fase inicial
+
+      <select
+        name="Fase_Actual"
+        id="faseInicial"
+      ></select>
+
+    </label>
+
+
+    <label>
+      Observaciones
+
+      <textarea
+        name="Observaciones"
+      ></textarea>
+
+    </label>
+
+
+    <button
+      type="submit"
+      class="primary"
+    >
+      Crear proceso
+    </button>
+
+
+    <div
+      id="mensajeProceso"
+      class="message"
+    ></div>
+
+
+  </form>
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- CANDIDATURAS -->
+<!-- ============================= -->
+
+<section
+  id="candidaturas"
+  class="view hidden"
+>
+
+  <h2>
+    Nueva candidatura
+  </h2>
+
+
+  <form id="formCandidatura">
+
+
+    <label>
+      Proceso
+
+      <select
+        name="ID_Proceso"
+        id="candidaturaProceso"
+        required
+      ></select>
+
+    </label>
+
+
+    <label>
+      Sexo
+
+      <select
+        name="Sexo"
+        id="candidaturaSexo"
+        required
+      ></select>
+
+    </label>
+
+
+    <label>
+      Fuente
+
+      <select
+        name="Fuente"
+        id="candidaturaFuente"
+        required
+      ></select>
+
+    </label>
+
+
+    <label>
+      Fecha de candidatura
+
+      <input
+        type="date"
+        name="Fecha_Candidatura"
+      >
+
+    </label>
+
+
+    <label>
+      Observaciones
+
+      <textarea
+        name="Observaciones"
+      ></textarea>
+
+    </label>
+
+
+    <button
+      type="submit"
+      class="primary"
+    >
+      Crear candidatura
+    </button>
+
+
+    <div
+      id="mensajeCandidatura"
+      class="message"
+    ></div>
+
+
+  </form>
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- ESTADOS -->
+<!-- ============================= -->
+
+<section
+  id="estados"
+  class="view hidden"
+>
+
+  <h2>
+    Actualizar estado de candidatura
+  </h2>
+
+
+  <form id="formEstado">
+
+
+    <label>
+      Candidatura
+
+      <select
+        name="ID_Candidatura"
+        id="estadoCandidatura"
+        required
+      ></select>
+
+    </label>
+
+
+    <label>
+      Nuevo estado
+
+      <select
+        name="Estado"
+        id="nuevoEstado"
+        required
+      ></select>
+
+    </label>
+
+
+    <label>
+      Observaciones
+
+      <textarea
+        name="Observaciones"
+      ></textarea>
+
+    </label>
+
+
+    <button
+      type="submit"
+      class="primary"
+    >
+      Actualizar estado
+    </button>
+
+
+    <div
+      id="mensajeEstado"
+      class="message"
+    ></div>
+
+
+  </form>
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- ENTREVISTAS -->
+<!-- ============================= -->
+
+<section
+  id="entrevistas"
+  class="view hidden"
+>
+
+  <h2>
+    Registrar entrevista
+  </h2>
+
+
+  <form id="formEntrevista">
+
+
+    <label>
+      Candidatura
+
+      <select
+        name="ID_Candidatura"
+        id="entrevistaCandidatura"
+        required
+      ></select>
+
+    </label>
+
+
+    <label>
+      Fecha programada
+
+      <input
+        name="Fecha_Programada"
+        type="datetime-local"
+      >
+
+    </label>
+
+
+    <label>
+      Fecha realizada
+
+      <input
+        name="Fecha_Realizacion"
+        type="datetime-local"
+      >
+
+    </label>
+
+
+    <label>
+      Estado
+
+      <select
+        name="Estado_Entrevista"
+        id="estadoEntrevista"
+      ></select>
+
+    </label>
+
+
+    <label>
+      Resultado
+
+      <select
+        name="Resultado"
+        id="resultadoEntrevista"
+      ></select>
+
+    </label>
+
+
+    <label>
+      Observaciones
+
+      <textarea
+        name="Observaciones"
+      ></textarea>
+
+    </label>
+
+
+    <button
+      type="submit"
+      class="primary"
+    >
+      Registrar entrevista
+    </button>
+
+
+    <div
+      id="mensajeEntrevista"
+      class="message"
+    ></div>
+
+
+  </form>
+
+</section>
+
+
+
+<!-- ============================= -->
+<!-- CONTRATACIONES -->
+<!-- ============================= -->
+
+<section
+  id="contrataciones"
+  class="view hidden"
+>
+
+  <h2>
+    Registrar contratación
+  </h2>
+
+
+  <form id="formContratacion">
+
+
+    <label>
+      Candidatura
+
+      <select
+        name="ID_Candidatura"
+        id="contratacionCandidatura"
+        required
+      ></select>
+
+    </label>
+
+
+    <label>
+      Fecha de contrato
+
+      <input
+        name="Fecha_Contrato"
+        type="date"
+      >
+
+    </label>
+
+
+    <label>
+      Estado
+
+      <select
+        name="Estado_Contrato"
+        id="estadoContrato"
+      ></select>
+
+    </label>
+
+
+    <label>
+      Observaciones
+
+      <textarea
+        name="Observaciones"
+      ></textarea>
+
+    </label>
+
+
+    <button
+      type="submit"
+      class="primary"
+    >
+      Registrar contratación
+    </button>
+
+
+    <div
+      id="mensajeContratacion"
+      class="message"
+    ></div>
+
+
+  </form>
+
+</section>
+
+
 </main>
 
-<script>
-let DATA = {procesos:[], candidaturas:[], catalogos:[]};
 
-function formObject(form) {
-  const o = {};
-  new FormData(form).forEach((v,k) => o[k] = v);
-  return o;
-}
-function fillSelect(id, values, placeholder='Seleccionar...') {
-  const el = document.getElementById(id);
-  el.innerHTML = `<option value="">${placeholder}</option>`;
-  [...new Set(values.filter(v => v !== '' && v != null))].forEach(v => {
-    const op = document.createElement('option'); op.value=v; op.textContent=v; el.appendChild(op);
-  });
-}
-function show(id, btn) {
-  document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  document.querySelectorAll('nav .tab').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-}
-function load() {
-  google.script.run.withSuccessHandler(data => {
-    DATA=data;
-    fillSelect('filtroProceso', DATA.procesos.map(p=>p.ID_Proceso), 'Todos los procesos');
-    const procesoSelect = document.getElementById('candProceso');
-    procesoSelect.innerHTML='<option value="">Seleccionar...</option>';
-    DATA.procesos.forEach(p=>{
-      procesoSelect.innerHTML += `<option value="${p.ID_Proceso}">${p.ID_Proceso} — ${p.Nombre_Proceso}</option>`;
-    });
-    const cats = DATA.catalogos;
-    fillSelect('faseInicial', cats.map(x=>x.Fases_Proceso));
-    fillSelect('sexoCand', cats.map(x=>x.Sexo));
-    fillSelect('fuenteCand', cats.map(x=>x.Fuentes_Candidatura));
-    fillSelect('estadoNuevo', cats.map(x=>x.Estados_Candidatura));
-    fillSelect('estadoEntrevista', cats.map(x=>x.Estados_Entrevista));
-    fillSelect('resultadoEntrevista', cats.map(x=>x.Resultados_Entrevista));
-    fillSelect('estadoContrato', cats.map(x=>x.Estados_Contrato));
-    refreshCandidaturas();
-    renderDashboard(DATA.dashboard);
-  }).getInitialData();
-}
-function refreshCandidaturas() {
-  ['estadoCand','entrevistaCand','contratoCand'].forEach(id=>{
-    const el=document.getElementById(id);
-    el.innerHTML='<option value="">Seleccionar...</option>';
-    DATA.candidaturas.forEach(c=>{
-      el.innerHTML += `<option value="${c.ID_Candidatura}">${c.ID_Candidatura} — ${c.ID_Proceso} — ${c.Sexo} — ${c.Estado_Actual}</option>`;
-    });
-  });
-}
-function renderDashboard(d) {
-  const m=[
-    ['Vacantes',d.vacantes],['Candidaturas',d.candidaturas],['Preseleccionadas',d.preseleccionadas],
-    ['Entrevistas',d.entrevistas],['Seleccionadas',d.seleccionadas],['Contrataciones',d.contrataciones]
-  ];
-  document.getElementById('metricas').innerHTML=m.map(x=>`<div class="card">${x[0]}<div class="metric">${x[1]}</div></div>`).join('');
-  document.getElementById('sexo').innerHTML=`
-    <table><tr><th>Indicador</th><th>Mujeres</th><th>Hombres</th></tr>
-    <tr><td>Candidaturas</td><td>${d.candidaturasMujeres}</td><td>${d.candidaturasHombres}</td></tr>
-    <tr><td>Preseleccionadas</td><td>${d.preseleccionadasMujeres}</td><td>${d.preseleccionadasHombres}</td></tr>
-    <tr><td>Entrevistas</td><td>${d.entrevistasMujeres}</td><td>${d.entrevistasHombres}</td></tr>
-    <tr><td>Seleccionadas</td><td>${d.seleccionadasMujeres}</td><td>${d.seleccionadasHombres}</td></tr>
-    <tr><td>Contrataciones</td><td>${d.contratacionesMujeres}</td><td>${d.contratacionesHombres}</td></tr>
-    </table>
-    <p>Ratios: preselección ${(d.ratioPreseleccion*100).toFixed(1)}% · entrevista ${(d.ratioEntrevista*100).toFixed(1)}% · contratación ${(d.ratioContratacion*100).toFixed(1)}%</p>`;
-}
-function cargarDashboard() {
-  const id=document.getElementById('filtroProceso').value;
-  google.script.run.withSuccessHandler(renderDashboard).obtenerDashboard(id);
-}
-function submitServer(form, fn, msgId, successText) {
-  const data=formObject(form);
-  google.script.run.withSuccessHandler(r=>{
-    document.getElementById(msgId).className='msg';
-    document.getElementById(msgId).textContent=successText;
-    form.reset(); load();
-  }).withFailureHandler(e=>{
-    document.getElementById(msgId).className='msg';
-    document.getElementById(msgId).textContent='Error: '+e.message;
-  })[fn](data);
-}
-function guardarProceso(e){e.preventDefault();submitServer(e.target,'crearProceso','msgProceso','Proceso creado correctamente.');}
-function guardarCandidatura(e){e.preventDefault();submitServer(e.target,'crearCandidatura','msgCandidatura','Candidatura creada correctamente.');}
-function actualizarEstado(e){e.preventDefault();submitServer(e.target,'cambiarEstadoCandidatura','msgEstado','Estado actualizado correctamente.');}
-function guardarEntrevista(e){e.preventDefault();submitServer(e.target,'crearEntrevista','msgEntrevista','Entrevista registrada correctamente.');}
-function guardarContrato(e){e.preventDefault();submitServer(e.target,'crearContratacion','msgContrato','Contratación registrada correctamente.');}
-load();
-</script>
+<script src="js/app.js"></script>
+
+
 </body>
-</html>
 
+</html>
