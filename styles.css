@@ -1,0 +1,287 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+
+  margin: 0;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: #f4f6f8;
+
+  color: #202124;
+
+}
+
+
+header {
+
+  background: #1f3a5f;
+
+  color: white;
+
+  padding: 25px 0;
+
+}
+
+
+.container {
+
+  width: min(
+    1180px,
+    92%
+  );
+
+  margin: auto;
+
+}
+
+
+header h1 {
+
+  margin: 0;
+
+}
+
+
+header p {
+
+  margin-bottom: 0;
+
+}
+
+
+nav {
+
+  background: white;
+
+  border-bottom:
+    1px solid #ddd;
+
+}
+
+
+.nav {
+
+  display: flex;
+
+  gap: 8px;
+
+  padding: 12px 0;
+
+  flex-wrap: wrap;
+
+}
+
+
+nav button {
+
+  border: 0;
+
+  background: #eef1f4;
+
+  padding: 10px 16px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+}
+
+
+nav button.active {
+
+  background: #1f3a5f;
+
+  color: white;
+
+}
+
+
+.view {
+
+  padding: 30px 0;
+
+}
+
+
+.hidden {
+
+  display: none;
+
+}
+
+
+form,
+.panel {
+
+  background: white;
+
+  border:
+    1px solid #ddd;
+
+  border-radius: 10px;
+
+  padding: 25px;
+
+  margin-bottom: 20px;
+
+}
+
+
+label {
+
+  display: block;
+
+  font-weight: bold;
+
+  margin-bottom: 15px;
+
+}
+
+
+input,
+select,
+textarea {
+
+  display: block;
+
+  width: 100%;
+
+  margin-top: 6px;
+
+  padding: 10px;
+
+  border:
+    1px solid #bbb;
+
+  border-radius: 5px;
+
+  font-size: 15px;
+
+}
+
+
+textarea {
+
+  min-height: 100px;
+
+}
+
+
+button.primary {
+
+  background: #1f3a5f;
+
+  color: white;
+
+  border: 0;
+
+  padding: 11px 18px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+}
+
+
+.metrics {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(170px, 1fr)
+    );
+
+  gap: 15px;
+
+  margin: 20px 0;
+
+}
+
+
+.metric-card {
+
+  background: white;
+
+  border:
+    1px solid #ddd;
+
+  border-radius: 10px;
+
+  padding: 20px;
+
+}
+
+
+.metric-card strong {
+
+  display: block;
+
+  font-size: 30px;
+
+  margin-top: 8px;
+
+}
+
+
+table {
+
+  width: 100%;
+
+  border-collapse:
+    collapse;
+
+}
+
+
+th,
+td {
+
+  padding: 10px;
+
+  border-bottom:
+    1px solid #ddd;
+
+  text-align: left;
+
+}
+
+
+.message {
+
+  margin-top: 15px;
+
+  padding: 10px;
+
+  border-radius: 5px;
+
+}
+
+
+.message.success {
+
+  background: #e8f5e9;
+
+}
+
+
+.message.error {
+
+  background: #ffebee;
+
+}
+
+
+.ratios {
+
+  margin-top: 20px;
+
+}
